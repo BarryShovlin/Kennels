@@ -43,7 +43,7 @@ export const ApplicationViews = () => {
       </CustomerProvider>
 
       <EmployeeProvider>
-        <Route path="/employees">
+        <Route exact path="/employees">
         <h2>Employees</h2>
           <article className="employees">
           <EmployeeList />
