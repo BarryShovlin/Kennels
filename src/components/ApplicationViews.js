@@ -14,6 +14,7 @@ import { LocationList } from "./Locations/LocationList";
 import { LocationForm } from "./Locations/LocationForm"
 import { AnimalDetail } from "./animal/AnimalDetail"
 import { EmployeeDetail } from "./Employees/EmployeeDetail"
+import { LocationDetail } from "./Locations/LocationDetail"
 
 
 export const ApplicationViews = () => {
@@ -27,40 +28,41 @@ export const ApplicationViews = () => {
         <Route exact path="/animals/detail/:animalId(\d+)">
           <AnimalDetail />
         </Route>
-  <LocationProvider>
-    <CustomerProvider>
-      <Route exact path="/animals">
-        <AnimalList />
-      </Route>
+        <LocationProvider>
+          <CustomerProvider>
+            <Route exact path="/animals">
+              <AnimalList />
+            </Route>
 
-      <Route path="/animals/create">
-        <AnimalForm />
-      </Route>
-    </CustomerProvider>
-  </LocationProvider>
-    <Route path="/animals/edit/:animalId(\d+)">
-      <AnimalForm />
-    </Route>
-</AnimalProvider>
+            <Route path="/animals/create">
+              <AnimalForm />
+            </Route>
+            <Route path="/animals/edit/:animalId(\d+)">
+              <AnimalForm />
+            </Route>
+          </CustomerProvider>
+        </LocationProvider>
+
+      </AnimalProvider>
 
       <CustomerProvider>
         <Route path="/customers">
-            <CustomerList />
-         
+          <CustomerList />
+
         </Route>
       </CustomerProvider>
 
       <EmployeeProvider>
         <LocationProvider>
-        <Route exact path="/employees">
-          <EmployeeList />
-        </Route>
-        <Route exact path="/employees/create">
-          <EmployeeForm />
-        </Route>
-        <Route exact path="/employees/detail/:employeeId(\d+)">
-      <EmployeeDetail />
-        </Route>  
+          <Route exact path="/employees">
+            <EmployeeList />
+          </Route>
+          <Route exact path="/employees/create">
+            <EmployeeForm />
+          </Route>
+          <Route exact path="/employees/detail/:employeeId(\d+)">
+            <EmployeeDetail />
+          </Route>
         </LocationProvider>
       </EmployeeProvider>
 
@@ -71,7 +73,13 @@ export const ApplicationViews = () => {
         <Route exact path="/locations/create">
           <LocationForm />
         </Route>
+        <Route exact path="/locations/detail/:locationId(\d+)">
+          <LocationDetail />
+        </Route>
+        <Route path="/locations/edit/:locationId(\d+)">
+          <LocationForm />
+        </Route>
       </LocationProvider>
     </>
-      );
-    };
+  );
+};

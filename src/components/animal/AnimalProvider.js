@@ -36,7 +36,7 @@ export const AnimalProvider = (props) => {
     }
 
     const updateAnimal = animal => {
-        return fetch(`http://localhost:8088/animals/${aniimal.id}`, {
+        return fetch(`http://localhost:8088/animals/${animal.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
