@@ -11,7 +11,6 @@ export const EmployeeList = () => {
   const history = useHistory()
 
   useEffect(() => {
-    console.log("EmployeeList: useEffect - getEmployees");
     getEmployees();
 
   }, []);
