@@ -23,14 +23,14 @@ export const EmployeeProvider = (props) => {
         .then(getEmployees)
     };
 
-    const getAnimalById = (id) => {
-        return fetch('http://localhost:8088/animals/${id}?_expand=location$_expand=customer')
+    const getEmployeeById = (id) => {
+        return fetch(`http://localhost:8088/employees/${id}?_expand=locations`)
         .then(res => res.json())
     }
 
     return (
         <EmployeeContext.Provider value={{
-            employees, getEmployees, addEmployee, getAnimalById
+            employees, getEmployees, addEmployee, getEmployeeById
         }}>
             {props.children}
         </EmployeeContext.Provider>
