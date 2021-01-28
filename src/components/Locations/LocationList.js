@@ -17,17 +17,19 @@ export const LocationList = () => {
 
   return (
     <>
-    <h2>Locations</h2>
-<button onClick={() => {history.push("/locations/create")}}>
-        Add a Location
+      <div className="locations">
+        <h2>Locations</h2>
+
+        <button onClick={() => { history.push("/locations/create") }}>
+          Add a Location
     </button>
-    <div className="locations">
-    {
-  locations.map(location => {
-    return <LocationCard key={location.id} location={location} />
-  })
-    }
-    </div>
-</>
+
+        {
+          locations.map(location => {
+            return <LocationCard key={location.id} location={location} />
+          })
+        }
+      </div>
+    </>
   )
 };

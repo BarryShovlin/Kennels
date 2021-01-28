@@ -6,7 +6,7 @@ export const LocationProvider = (props) => {
     const [locations, setLocations] = useState([]);
 
     const getLocations = () => {
-        return fetch("http://localhost:8088/locations")
+        return fetch("http://localhost:8088/locations?_embed=employees&_embed=animals")
         .then(res => res.json())
         .then(setLocations)
     };
@@ -23,7 +23,7 @@ export const LocationProvider = (props) => {
     };
 
     const getLocationById = (id) => {
-        return fetch(`http://localhost:8088/locations/${id}`)
+        return fetch(`http://localhost:8088/locations/${id}?_embed=animals&_embed=employees`)
         .then(res => res.json())
     }
     const updateLocation = location => {
@@ -37,9 +37,16 @@ export const LocationProvider = (props) => {
         .then(getLocations)
     }
 
+    const deleteLocation = locationId => {
+        return fetch(`http://localhost:8088/locations/${locationId}`,{
+            method: "DELETE",
+        })
+        .then(getLocations)
+    }
+
     return (
         <LocationContext.Provider value={{
-            locations, getLocations, addLocation, getLocationById, updateLocation
+            locations, getLocations, addLocation, getLocationById, updateLocation, deleteLocation
         }}>
             {props.children}
         </LocationContext.Provider>

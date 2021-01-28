@@ -10,6 +10,5 @@ export const LocationCard = ({location}) => (
                 { location.name }
             </Link>
         </h3>
-        <div className="location__address">{location.address}</div>
     </section>
 );

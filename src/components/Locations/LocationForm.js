@@ -1,13 +1,12 @@
 
 import React, { useContext, useEffect, useState } from "react"
 import { LocationContext } from "./LocationProvider"
-import { getLocations } from "./LocationProvider"
 import "./Location.css"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 
 
 export const LocationForm = () => {
-    const { addLocation } = useContext(LocationContext)
+    const { addLocation, getLocationById, updateLocation, getLocations } = useContext(LocationContext)
 
     const [ location, setLocation] = useState({
         name: "",
@@ -19,6 +18,8 @@ export const LocationForm = () => {
     // useEfffect(() => {
     //     getLocations()
     // }, [])
+    const [isLoading, setIsLoading] = useState(true)
+    const { locationId }= useParams()
 
     const handleControlledInputChange = (event) => {
         const newLocation = { ...location }
@@ -26,11 +27,36 @@ export const LocationForm = () => {
         setLocation(newLocation)
     }
     
-    const handleClickSaveLocation = (event) => {
-        event.preventDefault()
-        addLocation(location)
-        .then(() => history.push("/locations"))
+    const handleClickSaveLocation = () => {
+        setIsLoading(true);
+        if (locationId) {
+            updateLocation({
+                id: location.id,
+                name: location.name,
+                address: location.address
+            })
+            .then(() => history.push(`/locations/detail/${location.id}`))
+        } else {
+            addLocation({
+                name: location.name,
+                address: location.address
+            })
+            .then(() => history.push("/locations"))
+        }
     }
+    useEffect(() => {
+        getLocations().then(() => {
+            if (locationId) {
+                getLocationById(locationId)
+                .then(lcoation => {
+                    setLocation(location)
+                    setIsLoading(false)
+                })
+            } else {
+                setIsLoading(false)
+            }
+        })
+    }, [])
 
     return (
         <form className="locationForm">
@@ -48,9 +74,12 @@ export const LocationForm = () => {
                 </div>
             </fieldset>
             <button className="btn btn-primary"
-            onClick={handleClickSaveLocation}>
-                Save Location
-            </button>
+            disabled={isLoading}
+            onClick={event => {
+                event.preventDefault()
+                handleClickSaveLocation()
+            }}>
+               {locationId ? "Save Location" : "Add Location"}</button>
         </form>
     )
 }
